@@ -1,5 +1,6 @@
 import {
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -12,6 +13,10 @@ import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 import CategoryButtons from "@/components/CategoryButtons";
+import Listings from "@/components/Listings";
+import { listingsData } from "@/data/destinations";
+import GroupListings from "@/components/GroupListings";
+import groupData from "@/data/groups.json";
 
 const Index = () => {
   const headerHeight = useHeaderHeight();
@@ -58,23 +63,33 @@ const Index = () => {
       />
 
       <View style={[styles.container, { paddingTop: headerHeight }]}>
-        <Text style={styles.headingText}>Explore The Beautiful World!</Text>
+        <ScrollView>
+          <Text style={styles.headingText}>Explore The Beautiful World!</Text>
 
-        <View style={styles.searchSectionWrapper}>
-          <View style={styles.searchBar}>
-            <Ionicons
-              name="search"
-              size={18}
-              style={{ marginRight: 5, color: Colors.black }}
-            />
-            <TextInput placeholder="Search..." placeholderTextColor="gray" />
+          <View style={styles.searchSectionWrapper}>
+            <View style={styles.searchBar}>
+              <Ionicons
+                name="search"
+                size={18}
+                style={{ marginRight: 5, color: Colors.black }}
+              />
+              <TextInput
+                placeholder="Search..."
+                placeholderTextColor="gray"
+                style={{ flex: 1 }}
+              />
+            </View>
+            <TouchableOpacity onPress={() => {}} style={styles.filterBtn}>
+              <Ionicons name="options" size={28} color={Colors.white} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => {}} style={styles.filterBtn}>
-            <Ionicons name="options" size={28} color={Colors.white} />
-          </TouchableOpacity>
-        </View>
 
-        <CategoryButtons onCategoryChanged={onCatChanged} />
+          <CategoryButtons onCategoryChanged={onCatChanged} />
+
+          <Listings listings={listingsData} category={category} />
+
+          <GroupListings listings={groupData} />
+        </ScrollView>
       </View>
     </>
   );
