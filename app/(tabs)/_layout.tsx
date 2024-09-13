@@ -1,15 +1,15 @@
 import Colors from "@/constants/Colors";
-import {
-  FontAwesome,
-  Ionicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
+import { useFavoriteStore } from "@/store/favorite-store";
 
 export default function TabLayout() {
+  const { favorites } = useFavoriteStore((state) => ({
+    favorites: state.favorites,
+  }));
+
   return (
     <Tabs
       screenOptions={{
@@ -61,7 +61,31 @@ export default function TabLayout() {
         name="bookmarks"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="bookmark" size={28} color={color} />
+            <View style={{ position: "relative" }}>
+              {favorites.length > 0 && (
+                <View
+                  style={{
+                    position: "absolute",
+                    top: -5,
+                    right: -5,
+                    width: 20,
+                    height: 20,
+                    borderRadius: 10,
+                    zIndex: 100,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderWidth: 2,
+                    borderColor: Colors.bgColor,
+                    backgroundColor: Colors.primaryColor,
+                  }}
+                >
+                  <Text style={{ color: Colors.white, textAlign: "center" }}>
+                    {favorites.length}
+                  </Text>
+                </View>
+              )}
+              <Ionicons name="bookmark" size={28} color={color} />
+            </View>
           ),
         }}
       />

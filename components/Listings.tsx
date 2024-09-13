@@ -12,6 +12,7 @@ import { ListingType } from "@/types/listingsType";
 import Colors from "@/constants/Colors";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
+import { useFavoriteStore } from "../store/favorite-store";
 
 type Props = {
   listings: any[];
@@ -20,6 +21,12 @@ type Props = {
 
 const Listings = ({ listings, category }: Props) => {
   const [loading, setLoading] = useState(false);
+
+  const { addToFavorites } = useFavoriteStore((state) => ({
+    addToFavorites: state.addToFavorites,
+  }));
+
+  const filteredListings = listings.filter((x) => x.category === category);
 
   useEffect(() => {
     console.log("Update listing");
@@ -36,13 +43,16 @@ const Listings = ({ listings, category }: Props) => {
         <TouchableOpacity>
           <View style={styles.item}>
             <Image source={{ uri: item.image }} style={styles.image} />
-            <View style={styles.bookmark}>
+            <TouchableOpacity
+              onPress={() => addToFavorites(item)}
+              style={styles.bookmark}
+            >
               <Ionicons
                 name="bookmark-outline"
                 size={20}
                 color={Colors.white}
               />
-            </View>
+            </TouchableOpacity>
             <Text numberOfLines={1} ellipsizeMode="tail" style={styles.itemTxt}>
               {item.name}
             </Text>
@@ -68,7 +78,7 @@ const Listings = ({ listings, category }: Props) => {
   return (
     <View>
       <FlatList
-        data={loading ? [] : listings}
+        data={filteredListings.length > 0 ? filteredListings : listings}
         renderItem={renderItems}
         horizontal
         showsHorizontalScrollIndicator={false}
