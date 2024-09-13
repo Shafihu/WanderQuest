@@ -34,6 +34,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="category"
         options={{
+          title: "Category",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="space-dashboard" size={28} color={color} />
           ),
@@ -42,6 +43,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="search"
         options={{
+          title: "Search",
           tabBarIcon: () => (
             <View
               style={{
@@ -60,17 +62,17 @@ export default function TabLayout() {
       <Tabs.Screen
         name="bookmarks"
         options={{
+          title: "Bookmarks",
           tabBarIcon: ({ color }) => (
             <View style={{ position: "relative" }}>
               {favorites.length > 0 && (
                 <View
                   style={{
                     position: "absolute",
-                    top: -5,
-                    right: -5,
-                    width: 20,
-                    height: 20,
-                    borderRadius: 10,
+                    top: -8,
+                    right: -12,
+                    borderRadius: 100,
+                    paddingHorizontal: 5,
                     zIndex: 100,
                     justifyContent: "center",
                     alignItems: "center",
@@ -92,6 +94,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
+          title: "Profile",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="user" size={28} color={color} />
           ),

@@ -10,6 +10,7 @@ import React from "react";
 import { GroupType } from "@/types/groupType";
 import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import MiniCard from "./MiniCard";
 
 const GroupListings = ({ listings }: { listings: GroupType[] }) => {
   const renderItem: ListRenderItem<GroupType> = ({ item }) => {
@@ -29,15 +30,17 @@ const GroupListings = ({ listings }: { listings: GroupType[] }) => {
   };
 
   return (
-    <View style={{ marginVertical: 20 }}>
-      <Text style={styles.title}>Top Travel Groups</Text>
-      <FlatList
-        data={listings}
-        renderItem={renderItem}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      />
-    </View>
+    <MiniCard>
+      <View style={{ marginVertical: 20 }}>
+        <Text style={styles.title}>Top Travel Groups</Text>
+        <FlatList
+          data={listings}
+          renderItem={renderItem}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+    </MiniCard>
   );
 };
 
